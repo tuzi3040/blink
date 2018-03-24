@@ -2,7 +2,7 @@
 //
 // B L I N K
 //
-// Copyright (C) 2016 Blink Mobile Shell Project
+// Copyright (C) 2016-2018 Blink Mobile Shell Project
 //
 // This file is part of Blink.
 //
@@ -122,11 +122,17 @@ static NSURL *DocumentsDirectory = nil;
       includingPropertiesForKeys:properties
 			 options:(NSDirectoryEnumerationSkipsHiddenFiles)
 			   error:&error];
-    NSString *fileExt = [NSString stringWithFormat:@".%@", self.resourcesExtension];
-
+    
+    NSString *resExt = self.resourcesExtension;
+    NSString *fileExt = [NSString stringWithFormat:@".%@", resExt];
+    
     if (resourceFiles != nil) {
       for (NSURL *file in resourceFiles) {
+        if (![[file pathExtension] isEqualToString:resExt]) {
+          continue;
+        }
 	NSString *fileName = [file lastPathComponent];
+        
 	BKResource *res = [[self alloc] initWithName:[fileName stringByReplacingOccurrencesOfString:fileExt withString:@""]
 					 andFileName:fileName
 					       onURL:self.defaultResourcesLocation];
@@ -202,7 +208,7 @@ static NSURL *DocumentsDirectory = nil;
 
 + (NSInteger)defaultResourcesCount
 {
-  return [self.defaultResources count];
+  return self.all.count - self.customResources.count;
 }
 
 + (BOOL)saveAll

@@ -2,7 +2,7 @@
 //
 // B L I N K
 //
-// Copyright (C) 2016 Blink Mobile Shell Project
+// Copyright (C) 2016-2018 Blink Mobile Shell Project
 //
 // This file is part of Blink.
 //
@@ -59,11 +59,7 @@
 
 + (void)sendToAppStore
 {
-  // This link will open app Details tab in app store
-//  NSURL *appStoreLink = [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1156707581"];
-  
-  // This link will open Reviews tab in app store
-  NSURL *appStoreLink = [NSURL URLWithString:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=1156707581"];
+  NSURL *appStoreLink = [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1156707581?action=write-review"];
   [[UIApplication sharedApplication] openURL:appStoreLink];
 }
 
